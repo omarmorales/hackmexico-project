@@ -8,18 +8,18 @@ import {
   Tooltip,
   Chip,
   Box,
-  CardActions
+  CardActions,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-function ResultCard({ result }) {
+function ResultCard({ result, setAlert }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const riskColors = {
-    low: "success",
-    medium: "warning",
-    high: "error",
+    low: "green",
+    medium: "yellow",
+    high: "red",
   };
 
   return (
@@ -36,7 +36,12 @@ function ResultCard({ result }) {
             <img
               src={result.image}
               alt={result.title}
-              style={{ width: "50px", height: "50px", marginRight: "10px", marginBottom: "10px" }}
+              style={{
+                width: "auto",
+                height: "50px",
+                marginRight: "10px",
+                marginBottom: "10px",
+              }}
             />
           ) : (
             <Typography
@@ -47,7 +52,12 @@ function ResultCard({ result }) {
               {result.title}
             </Typography>
           )}
-          <Chip label={result.risk} color={riskColors[result.risk]} />
+          <Typography
+            variant="overline"
+            style={{ color: riskColors[result.risk] }}
+          >
+            {result.risk} risk
+          </Typography>
         </Box>
         <Typography variant="body1">
           {result.description && result.description.length > 300
@@ -84,7 +94,7 @@ function ResultCard({ result }) {
           </IconButton>
         </Tooltip>
         <div>
-          <Typography variant="h6">$123.45 MXN</Typography>
+          <Typography variant="h6">{ result.risk }</Typography>
           <Typography variant="body2" color="text.secondary">
             Min Investment
           </Typography>
