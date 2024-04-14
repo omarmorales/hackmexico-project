@@ -1,7 +1,7 @@
 // Home.jsx
 import React, { useState } from "react";
 import { TypeAnimation } from "react-type-animation";
-import { Snackbar, Slider, Typography } from "@mui/material";
+import { Slider, Typography, FormControlLabel, Checkbox, Snackbar } from '@mui/material';
 import MuiAlert from "@mui/material/Alert";
 import "../App.css";
 
@@ -12,7 +12,7 @@ function Home() {
   // Example data
   const results = [
     {
-      title: "Investment 1",
+      title: "Cetesdirecto",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/8/80/Cetesdirecto.png",
       description:
@@ -39,15 +39,33 @@ function Home() {
     },
   ];
 
-  const [value, setValue] = useState([500, 100000]);
+  const [value, setValue] = useState([500, 20000]);
+  const [checkedLow, setCheckedLow] = useState(true);
+  const [checkedMedium, setCheckedMedium] = useState(true);
+  const [checkedHigh, setCheckedHigh] = useState(true);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const filteredResults = results.filter(
-    (result) =>
-      result.minInvestment >= value[0] && result.minInvestment <= value[1]
+  const handleCheckLow = (event) => {
+    setCheckedLow(event.target.checked);
+  };
+
+  const handleCheckMedium = (event) => {
+    setCheckedMedium(event.target.checked);
+  };
+
+  const handleCheckHigh = (event) => {
+    setCheckedHigh(event.target.checked);
+  };
+
+  const filteredResults = results.filter(result => 
+    result.minInvestment >= value[0] && 
+    result.minInvestment <= value[1] &&
+    ((result.risk === 'low' && checkedLow) ||
+     (result.risk === 'medium' && checkedMedium) ||
+     (result.risk === 'high' && checkedHigh))
   );
 
   const [alert, setAlert] = useState({ open: false, message: "" });
@@ -64,7 +82,7 @@ function Home() {
           preRenderFirstString={true}
           sequence={[
             500,
-            "The best tools for your first investment in Mexico 🇲🇽", // initially rendered starting point
+            "The best tools for your first investment in Mexico 🇲🇽",
             1500,
             "The best tools for your investments in Mexico 😎",
             1500,
@@ -88,8 +106,26 @@ function Home() {
           aria-labelledby="range-slider"
           min={500}
           max={100000}
-          valueLabelFormat={value => `$${value.toLocaleString('es-MX')} MXN`}
+          valueLabelFormat={(value) => `$${value.toLocaleString("es-MX")} MXN`}
         />
+
+        <FormControlLabel
+          control={<Checkbox checked={checkedLow} onChange={handleCheckLow} />}
+          label="Low Risk"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox checked={checkedMedium} onChange={handleCheckMedium} />
+          }
+          label="Medium Risk"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox checked={checkedHigh} onChange={handleCheckHigh} />
+          }
+          label="High Risk"
+        />
+
         {filteredResults.map((result, index) => (
           <ResultCard key={index} result={result} setAlert={setAlert} />
         ))}

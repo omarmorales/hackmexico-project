@@ -35,9 +35,9 @@ function App() {
           <Toolbar>
             {isMobile && (
               <>
-                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleDrawerToggle}>
+{/*                 <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleDrawerToggle}>
                   <MenuIcon />
-                </IconButton>
+                </IconButton> */}
                 <Drawer
                   anchor="left"
                   open={drawerOpen}
