@@ -64,6 +64,9 @@ function ResultCard({ result, setAlert }) {
             ? `${result.description.substring(0, 300)}...`
             : result.description}
         </Typography>
+        <Typography variant="body1" style={{ fontWeight: 'bold', marginTop: '1em' }}>
+          Expected Performance: {(result.expectedPerformance * 100).toFixed(2)}%
+        </Typography>
       </CardContent>
       <CardActions
         sx={{

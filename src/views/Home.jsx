@@ -1,7 +1,13 @@
 // Home.jsx
 import React, { useState } from "react";
 import { TypeAnimation } from "react-type-animation";
-import { Slider, Typography, FormControlLabel, Checkbox, Snackbar } from '@mui/material';
+import {
+  Slider,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Snackbar,
+} from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import "../App.css";
 
@@ -19,6 +25,7 @@ function Home() {
         "This is a description for Investment 1. It's a great opportunity with low risk and high returns.",
       minInvestment: 1000,
       risk: "low",
+      expectedPerformance: 0.1082,
     },
     {
       title: "100 ladrillos",
@@ -28,6 +35,7 @@ function Home() {
         "This is a description for Investment 2. It's a moderate opportunity with medium risk and medium returns.",
       minInvestment: 1467.56,
       risk: "medium",
+      expectedPerformance: 0.07,
     },
     {
       title: "Investment 3",
@@ -36,6 +44,7 @@ function Home() {
         "This is a description for Investment 3. It's a risky opportunity with high risk and high returns.",
       minInvestment: 3000,
       risk: "high",
+      expectedPerformance: 0.1,
     },
   ];
 
@@ -43,6 +52,7 @@ function Home() {
   const [checkedLow, setCheckedLow] = useState(true);
   const [checkedMedium, setCheckedMedium] = useState(true);
   const [checkedHigh, setCheckedHigh] = useState(true);
+  const [performanceValue, setPerformanceValue] = useState([0.0, 0.11]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,12 +70,19 @@ function Home() {
     setCheckedHigh(event.target.checked);
   };
 
-  const filteredResults = results.filter(result => 
-    result.minInvestment >= value[0] && 
-    result.minInvestment <= value[1] &&
-    ((result.risk === 'low' && checkedLow) ||
-     (result.risk === 'medium' && checkedMedium) ||
-     (result.risk === 'high' && checkedHigh))
+  const handlePerformanceChange = (event, newValue) => {
+    setPerformanceValue(newValue);
+  };
+
+  const filteredResults = results.filter(
+    (result) =>
+      result.minInvestment >= value[0] &&
+      result.minInvestment <= value[1] &&
+      result.expectedPerformance >= performanceValue[0] &&
+      result.expectedPerformance <= performanceValue[1] &&
+      ((result.risk === "low" && checkedLow) ||
+        (result.risk === "medium" && checkedMedium) ||
+        (result.risk === "high" && checkedHigh))
   );
 
   const [alert, setAlert] = useState({ open: false, message: "" });
@@ -82,11 +99,11 @@ function Home() {
           preRenderFirstString={true}
           sequence={[
             500,
-            "The best tools for your first investment in Mexico 🇲🇽",
+            "Noe finds the best tools for your first investment in Mexico 🇲🇽",
             1500,
-            "The best tools for your investments in Mexico 😎",
+            "Noe finds the best tools for your investments in Mexico 😎",
             1500,
-            "The best tools for your investments worldwide 🌎",
+            "Noe finds the best tools for your investments worldwide 🌎",
             500,
           ]}
           speed={50}
@@ -124,6 +141,20 @@ function Home() {
             <Checkbox checked={checkedHigh} onChange={handleCheckHigh} />
           }
           label="High Risk"
+        />
+
+        <Typography id="performance-range-slider" gutterBottom style={{ marginTop: "1em" }}>
+          Expected Performance Range
+        </Typography>
+        <Slider
+          value={performanceValue}
+          onChange={handlePerformanceChange}
+          valueLabelDisplay="auto"
+          aria-labelledby="performance-range-slider"
+          min={0.0}
+          max={1.0}
+          step={0.01}
+          valueLabelFormat={(value) => `${(value * 100).toFixed(2)}%`}
         />
 
         {filteredResults.map((result, index) => (
