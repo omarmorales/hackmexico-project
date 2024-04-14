@@ -11,6 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Home from './views/Home';
+import Detail from './views/Detail';
 import { CssBaseline } from '@mui/material';
 import noeLogo from './assets/noe-logo.png';
 
@@ -67,6 +68,7 @@ function App() {
         <Box component="main" sx={{ p: 3 }}>
           <Routes>
             {/* <Route path="/about" element={<About />} /> */}
+            <Route path="/results/:id" element={<Detail />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Box>

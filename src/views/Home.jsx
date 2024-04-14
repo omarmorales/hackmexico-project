@@ -7,17 +7,22 @@ import {
   FormControlLabel,
   Checkbox,
   Snackbar,
+  IconButton,
+  Tooltip,
+  Stack,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import "../App.css";
 
 import ResultCard from "../components/ResultCard";
-import { Height } from "@mui/icons-material";
+import SortIcon from "@mui/icons-material/Sort";
+import { useNavigate, redirect } from 'react-router-dom';
 
 function Home() {
   // Example data
   const results = [
     {
+      id: 1,
       title: "Cetesdirecto",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/8/80/Cetesdirecto.png",
@@ -26,8 +31,10 @@ function Home() {
       minInvestment: 1000,
       risk: "low",
       expectedPerformance: 0.1082,
+      url: "https://www.cetesdirecto.com/",
     },
     {
+      id: 2,
       title: "100 ladrillos",
       image:
         "https://ayuda.100ladrillos.com/hc/article_attachments/14826951229197",
@@ -36,8 +43,22 @@ function Home() {
       minInvestment: 1467.56,
       risk: "medium",
       expectedPerformance: 0.07,
+      url: "https://100ladrillos.com/",
     },
     {
+      id: 3,
+      title: "Nu",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Nubank_logo_2021.svg",
+      description:
+        "This is a description for Investment 2. It's a moderate opportunity with medium risk and medium returns.",
+      minInvestment: 1467.56,
+      risk: "medium",
+      expectedPerformance: 0.1475,
+      url: "https://www.nu.com.mx/",
+    },
+    {
+      id: 4,
       title: "Investment 3",
       image: "https://via.placeholder.com/150",
       description:
@@ -45,14 +66,17 @@ function Home() {
       minInvestment: 3000,
       risk: "high",
       expectedPerformance: 0.1,
+      url: "https://example.com/",
     },
   ];
+
+  const navigate = useNavigate();
 
   const [value, setValue] = useState([500, 20000]);
   const [checkedLow, setCheckedLow] = useState(true);
   const [checkedMedium, setCheckedMedium] = useState(true);
   const [checkedHigh, setCheckedHigh] = useState(true);
-  const [performanceValue, setPerformanceValue] = useState([0.0, 0.11]);
+  const [sortOrder, setSortOrder] = useState("desc");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -70,20 +94,28 @@ function Home() {
     setCheckedHigh(event.target.checked);
   };
 
-  const handlePerformanceChange = (event, newValue) => {
-    setPerformanceValue(newValue);
+  const handleSortChange = () => {
+    setSortOrder(sortOrder === "desc" ? "asc" : "desc");
   };
 
-  const filteredResults = results.filter(
-    (result) =>
-      result.minInvestment >= value[0] &&
-      result.minInvestment <= value[1] &&
-      result.expectedPerformance >= performanceValue[0] &&
-      result.expectedPerformance <= performanceValue[1] &&
-      ((result.risk === "low" && checkedLow) ||
-        (result.risk === "medium" && checkedMedium) ||
-        (result.risk === "high" && checkedHigh))
-  );
+  const handleCardClick = (result) => {
+    window.location.href = result.url;
+  };
+
+  const filteredResults = results
+    .filter(
+      (result) =>
+        result.minInvestment >= value[0] &&
+        result.minInvestment <= value[1] &&
+        ((result.risk === "low" && checkedLow) ||
+          (result.risk === "medium" && checkedMedium) ||
+          (result.risk === "high" && checkedHigh))
+    )
+    .sort((a, b) =>
+      sortOrder === "desc"
+        ? b.expectedPerformance - a.expectedPerformance
+        : a.expectedPerformance - b.expectedPerformance
+    );
 
   const [alert, setAlert] = useState({ open: false, message: "" });
 
@@ -91,7 +123,7 @@ function Home() {
     <div>
       <div
         style={{
-          height: window.innerWidth <= 600 ? "10em" : "auto",
+          height: window.innerWidth <= 600 ? "10em" : "5em",
           overflow: "visible",
         }}
       >
@@ -121,8 +153,9 @@ function Home() {
           onChange={handleChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
-          min={500}
+          min={100}
           max={100000}
+          step={1000}
           valueLabelFormat={(value) => `$${value.toLocaleString("es-MX")} MXN`}
         />
 
@@ -143,22 +176,16 @@ function Home() {
           label="High Risk"
         />
 
-        <Typography id="performance-range-slider" gutterBottom style={{ marginTop: "1em" }}>
-          Expected Performance Range
-        </Typography>
-        <Slider
-          value={performanceValue}
-          onChange={handlePerformanceChange}
-          valueLabelDisplay="auto"
-          aria-labelledby="performance-range-slider"
-          min={0.0}
-          max={1.0}
-          step={0.01}
-          valueLabelFormat={(value) => `${(value * 100).toFixed(2)}%`}
-        />
+        <Stack direction="row" spacing={2} style={{ marginTop: '1em' }}>
+          <Tooltip title="Sort by Expected Performance">
+            <IconButton onClick={handleSortChange}>
+              <SortIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
 
         {filteredResults.map((result, index) => (
-          <ResultCard key={index} result={result} setAlert={setAlert} />
+          <ResultCard key={index} result={result} setAlert={setAlert} onClick={() => handleCardClick(result)}  />
         ))}
 
         <Snackbar

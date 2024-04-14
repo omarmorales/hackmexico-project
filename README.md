@@ -1,4 +1,4 @@
-# Noe :moneybag: :chart_with_upwards_trend:
+# Noe | Finantial Assistance :moneybag: :chart_with_upwards_trend:
 
 Noe is an investment comparison app designed to help first-time investors and individuals with limited funds make informed decisions about their investments in Mexico. :mexico:
 
@@ -41,7 +41,7 @@ This project is deployed on Firebase. To deploy the latest changes, run:
 ## Authors :writing_hand:
 
 - **Omar Saul Morales Ibarra** - *Initial work* - [OmarMorales](https://github.com/omarmorales)
-- **Carlos Alberto Guerrero Aguilar** - *Initial work* - [OmarMorales](https://github.com/omarmorales)
+- **Carlos Alberto Guerrero Aguilar** - *Initial work* - [CarlosGuerrero](https://github.com/carlgro)
 
 ## License :page_with_curl:
 
