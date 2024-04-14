@@ -49,7 +49,7 @@ function App() {
                     onClick={handleDrawerToggle}
                     onKeyDown={handleDrawerToggle}
                   >
-                    <Button onClick={() => navigate('/')}>Home</Button>
+                    {/* <Button onClick={() => navigate('/')}>Home</Button> */}
                     {/* <Button onClick={() => navigate('/about')}>About</Button> */}
                   </Box>
                 </Drawer>
@@ -58,8 +58,8 @@ function App() {
             <img src={noeLogo} alt="Noe Logo" style={{ height: '50px', verticalAlign: 'middle', marginRight: 'auto' }} />
             {!isMobile && (
               <>
-                <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
-                <Button color="inherit" onClick={() => navigate('/about')}>About</Button>
+                {/* <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
+                <Button color="inherit" onClick={() => navigate('/about')}>About</Button> */}
               </>
             )}
           </Toolbar>

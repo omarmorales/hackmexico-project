@@ -94,7 +94,12 @@ function ResultCard({ result, setAlert }) {
           </IconButton>
         </Tooltip>
         <div>
-          <Typography variant="h6">{ result.risk }</Typography>
+          <Typography variant="h6">
+            {new Intl.NumberFormat("es-MX", {
+              style: "currency",
+              currency: "MXN",
+            }).format(result.minInvestment)}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             Min Investment
           </Typography>
