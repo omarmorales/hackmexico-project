@@ -14,34 +14,34 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites :clipboard:
 
-What things you need to install the software and how to install them.
+You need to have Node.js and npm installed on your machine. This project was built on Node.js version 14.x and npm version 6.x.
 
 ### Installation :floppy_disk:
 
-A step by step series of examples that tell you how to get a development environment running.
+1. Clone the repository: `git clone https://github.com/omarmorales/hackmexico-project`
+2. Navigate into the directory: `cd hackmexico-project`
+3. Install the dependencies: `npm install`
 
 ## Running the tests :microscope:
 
-Explain how to run the automated tests for this system.
+Run the tests using the following command: `npm test`
 
 ## Deployment :ship:
 
-Add additional notes about how to deploy this on a live system.
+This project is deployed on Firebase. To deploy the latest changes, run:
+
+1. Build the project: `npm run build`
+2. Deploy to Firebase: `firebase deploy`
 
 ## Built With :hammer_and_wrench:
 
 - [React](https://reactjs.org/) - The web framework used
 - [Firebase](https://firebase.google.com/) - Backend and Hosting
 
-## Contributing :handshake:
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Authors :writing_hand:
 
-- **Your Name** - *Initial work* - [YourName](https://github.com/yourusername)
-
-See also the list of [contributors](https://github.com/yourusername/yourproject/contributors) who participated in this project.
+- **Omar Saul Morales Ibarra** - *Initial work* - [OmarMorales](https://github.com/omarmorales)
+- **Carlos Alberto Guerrero Aguilar** - *Initial work* - [OmarMorales](https://github.com/omarmorales)
 
 ## License :page_with_curl:
 
@@ -49,6 +49,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments :pray:
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+- Data provided by [Skyscanner](https://www.skyscanner.com/)
+- Data provided by [Banxico](https://comparador.banxico.org.mx/ComparadorCrediticio/)
