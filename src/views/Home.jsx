@@ -28,7 +28,7 @@ function Home() {
         "https://upload.wikimedia.org/wikipedia/commons/8/80/Cetesdirecto.png",
       description:
         "This is a description for Investment 1. It's a great opportunity with low risk and high returns.",
-      minInvestment: 1000,
+      minInvestment: 100,
       risk: "low",
       expectedPerformance: 0.1082,
       url: "https://www.cetesdirecto.com/",
@@ -52,27 +52,37 @@ function Home() {
         "https://upload.wikimedia.org/wikipedia/commons/f/f7/Nubank_logo_2021.svg",
       description:
         "This is a description for Investment 2. It's a moderate opportunity with medium risk and medium returns.",
-      minInvestment: 1467.56,
+      minInvestment: 100,
       risk: "medium",
       expectedPerformance: 0.1475,
       url: "https://www.nu.com.mx/",
     },
     {
       id: 4,
-      title: "Investment 3",
-      image: "https://via.placeholder.com/150",
+      title: "BMV",
+      image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_de_la_BMV.svg",
       description:
         "This is a description for Investment 3. It's a risky opportunity with high risk and high returns.",
-      minInvestment: 3000,
+      minInvestment: 100,
       risk: "high",
-      expectedPerformance: 0.1,
+      expectedPerformance: 0.077,
       url: "https://example.com/",
     },
+    {
+      id: 5,
+      title: "GBM+ Smart Cash",
+      image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Gbm%2B_logo.png",
+      description:
+        "GBM+ Smart Cash. It's a moderate opportunity with medium risk and medium returns.",
+      minInvestment: 100,
+      risk: "medium",
+      expectedPerformance: 0.0875,
+    }
   ];
 
   const navigate = useNavigate();
 
-  const [value, setValue] = useState([500, 20000]);
+  const [value, setValue] = useState([0, 20000]);
   const [checkedLow, setCheckedLow] = useState(true);
   const [checkedMedium, setCheckedMedium] = useState(true);
   const [checkedHigh, setCheckedHigh] = useState(true);
