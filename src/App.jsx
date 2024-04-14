@@ -12,6 +12,7 @@ import { Box } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Home from './views/Home';
 import { CssBaseline } from '@mui/material';
+import noeLogo from './assets/noe-logo.png';
 
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -54,9 +55,7 @@ function App() {
                 </Drawer>
               </>
             )}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Logo
-            </Typography>
+            <img src={noeLogo} alt="Noe Logo" style={{ height: '50px', verticalAlign: 'middle', marginRight: 'auto' }} />
             {!isMobile && (
               <>
                 <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
