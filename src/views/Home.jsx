@@ -1,26 +1,40 @@
 // Home.jsx
 import React, { useState } from "react";
+import {
+  Typography,
+} from "@mui/material";
 import { TypeAnimation } from "react-type-animation";
 import {
-  Tooltip,
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  IconButton,
   Snackbar,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
+import ResultCard from '../components/ResultCard';
 
 function Home() {
   // Example data
   const results = [
-    { title: "Result 1", description: "Description 1" },
-    { title: "Result 2", description: "Description 2" },
-    { title: "Result 3", description: "Description 3" },
-    // Add more results as needed
+    {
+      title: "Investment 1",
+      image: "https://via.placeholder.com/150",
+      description: "This is a description for Investment 1. It's a great opportunity with low risk and high returns.",
+      minInvestment: 1000,
+      risk: "low",
+    },
+    {
+      title: "Investment 2",
+      image: "https://via.placeholder.com/150",
+      description: "This is a description for Investment 2. It's a moderate opportunity with medium risk and medium returns.",
+      minInvestment: 2000,
+      risk: "medium",
+    },
+    {
+      title: "Investment 3",
+      image: "https://via.placeholder.com/150",
+      description: "This is a description for Investment 3. It's a risky opportunity with high risk and high returns.",
+      minInvestment: 3000,
+      risk: "high",
+    },
   ];
 
   const [alert, setAlert] = useState({ open: false, message: "" });
@@ -46,55 +60,19 @@ function Home() {
       </div>
 
       <div>
-        {results.map((result, index) => {
-          const [isFavorite, setIsFavorite] = useState(false);
-
-          return (
-            <Card key={index} sx={{ margin: "20px 0" }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {result.title}
-                </Typography>
-                <Typography variant="body2">{result.description}</Typography>
-              </CardContent>
-              <CardActions
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "20px",
-                }}
-              >
-                <Tooltip title="Add to favorites">
-                  <IconButton
-                    aria-label="add to favorites"
-                    onClick={() => {
-                      setIsFavorite(!isFavorite);
-                      setAlert({
-                        open: true,
-                        message: !isFavorite
-                          ? "Added to Favorites"
-                          : "Removed from Favorites",
-                      });
-                    }}
-                  >
-                    {isFavorite ? (
-                      <FavoriteIcon color="error" />
-                    ) : (
-                      <FavoriteBorderIcon />
-                    )}
-                  </IconButton>
-                </Tooltip>
-                <div>
-                  <Typography variant="h6">$123.45 MXN</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Min Investment
-                  </Typography>
-                </div>
-              </CardActions>
-            </Card>
-          );
-        })}
+        
+      {results.length === 0 ? (
+    <Typography variant="h5" component="div">
+      No results found 😞
+    </Typography>
+  ) : (
+    results.map((result, index) => (
+      <ResultCard
+        key={index}
+        result={result}
+      />
+    ))
+  )}
 
         <Snackbar
           open={alert.open}
