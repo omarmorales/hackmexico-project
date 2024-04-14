@@ -1,33 +1,78 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
-
-function Home() {
-  let navigate = useNavigate();
-  return (
-    <div>
-      <h1>Comparador de inversiones</h1>
-      <button onClick={() => navigate('/about')}>Go to About</button>
-    </div>
-  )
-}
-
-function About() {
-  let navigate = useNavigate();
-  return (
-    <div>
-      <h1>About</h1>
-      <button onClick={() => navigate('/')}>Go to Home</button>
-    </div>
-  )
-}
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Button from '@mui/material/Button';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Box } from '@mui/system';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Home from './views/Home';
+import { CssBaseline } from '@mui/material';
 
 function App() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const theme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/about" element={<About />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline /> 
+      <Router>
+        <AppBar position="static">
+          <Toolbar>
+            {isMobile && (
+              <>
+                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleDrawerToggle}>
+                  <MenuIcon />
+                </IconButton>
+                <Drawer
+                  anchor="left"
+                  open={drawerOpen}
+                  onClose={handleDrawerToggle}
+                >
+                  <Box
+                    sx={{ width: 250 }}
+                    role="presentation"
+                    onClick={handleDrawerToggle}
+                    onKeyDown={handleDrawerToggle}
+                  >
+                    <Button onClick={() => navigate('/')}>Home</Button>
+                    {/* <Button onClick={() => navigate('/about')}>About</Button> */}
+                  </Box>
+                </Drawer>
+              </>
+            )}
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Logo
+            </Typography>
+            {!isMobile && (
+              <>
+                <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
+                <Button color="inherit" onClick={() => navigate('/about')}>About</Button>
+              </>
+            )}
+          </Toolbar>
+        </AppBar>
+        <Box component="main" sx={{ p: 3 }}>
+          <Routes>
+            {/* <Route path="/about" element={<About />} /> */}
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Box>
+      </Router>
+    </ThemeProvider>
   )
 }
 
